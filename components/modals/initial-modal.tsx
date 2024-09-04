@@ -1,61 +1,76 @@
-"use client"
+"use client";
 
-import { useForm } from "react-hook-form";
+import axios from "axios";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import axios from "axios";
+
 import {
     Dialog,
     DialogContent,
     DialogDescription,
+    DialogFooter,
     DialogHeader,
     DialogTitle,
-    DialogFooter
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import {
     Form,
     FormControl,
     FormField,
     FormItem,
     FormLabel,
-    FormMessage,
+    FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { FileUpload } from "@/components/file-upload";
-
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
-    name: z.string().min(1, { message: "Server name is required" }),
-    imageUrl: z.string().min(1, { message: "Server image is required" })
+    name: z.string().min(1, {
+        message: "Server name is required."
+    }),
+    imageUrl: z.string().min(1, {
+        message: "Server image is required."
+    })
 });
 
 export const InitialModal = () => {
-    const [isMounted, setIsmMounted] = useState(false);
+    const [isMounted, setIsMounted] = useState(false);
+
     const router = useRouter();
-    useEffect(() => { setIsmMounted(true) }, []);
-    const form = useForm<z.infer<typeof formSchema>>({
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: "",
-            imageUrl: ""
+            imageUrl: "",
         }
     });
+
     const isLoading = form.formState.isSubmitting;
+
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             await axios.post("/api/servers", values);
+
             form.reset();
             router.refresh();
             window.location.reload();
         } catch (error) {
             console.log(error);
         }
-    };
+    }
 
-    if (!isMounted) return null;
+    if (!isMounted) {
+        return null;
+    }
+
     return (
         <Dialog open>
             <DialogContent className="bg-white text-black p-0 overflow-hidden">
@@ -120,7 +135,5 @@ export const InitialModal = () => {
                 </Form>
             </DialogContent>
         </Dialog>
-    );
+    )
 }
-
-
