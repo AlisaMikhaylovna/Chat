@@ -3,6 +3,7 @@ import { Open_Sans } from 'next/font/google'
 import './globals.css'
 import { ClerkProvider } from '@clerk/nextjs'
 import { ThemeProvider } from "@/components/providers/theme-provider"
+import { ModalProvider } from '@/components/providers/modal-provider'
 import { cn } from "@/lib/utils"
 
 const font = Open_Sans({ subsets: ['latin'] })
@@ -20,12 +21,13 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" suppressContentEditableWarning>
-        <body className={cn(font.className, "bg-white dark:bg-[#313338]")}>
+        <body className={cn(font.className, "bg-zinc-200 dark:bg-zinc-700")}>
           <ThemeProvider
             attribute="class"
-            defaultTheme="light"
+            defaultTheme="dark"
             enableSystem={false}
             storageKey="teamchat-theme">
+            <ModalProvider />
             {children}
           </ThemeProvider>
         </body>
