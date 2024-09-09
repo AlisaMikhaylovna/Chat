@@ -1,5 +1,6 @@
 "use client";
 
+import { useModal } from "@/hooks/use-modal-store";
 import { ServerWithMembersWithProfiles } from "@/types";
 import { MemberRole } from "@prisma/client";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
@@ -19,6 +20,7 @@ interface ServerHeaderProps {
 };
 
 export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
+    const { onOpen } = useModal();
     const isAdmin = role === MemberRole.ADMIN;
     const isModerator = isAdmin || role === MemberRole.MODERATOR;
 
@@ -32,7 +34,7 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56 text-xs font-medium text-black dark:text-neutral-400 space-y-[2px]">
                 {isModerator && (
-                    <DropdownMenuItem className="px-3 py-2 text-sm flex items-center justify-between cursor-pointer">
+                    <DropdownMenuItem className="px-3 py-2 text-sm flex items-center justify-between cursor-pointer" onClick={() => onOpen("invite", { server })}>
                         Invite People
                         <UserPlus className="h-4 w-4 ml-2" />
                     </DropdownMenuItem>
