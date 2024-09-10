@@ -40,13 +40,13 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
                     </DropdownMenuItem>
                 )}
                 {isAdmin && (
-                    <DropdownMenuItem className="px-3 py-2 text-sm flex items-center justify-between cursor-pointer">
+                    <DropdownMenuItem className="px-3 py-2 text-sm flex items-center justify-between cursor-pointer" onClick={() => onOpen("editServer", { server })}>
                         Server Settings
                         <Settings className="h-4 w-4 ml-2" />
                     </DropdownMenuItem>
                 )}
                 {isAdmin && (
-                    <DropdownMenuItem className="px-3 py-2 text-sm flex items-center justify-between cursor-pointer">
+                    <DropdownMenuItem className="px-3 py-2 text-sm flex items-center justify-between cursor-pointer" onClick={() => onOpen("members", { server })}>
                         Manage Members
                         <Users className="h-4 w-4 ml-2" />
                     </DropdownMenuItem>
