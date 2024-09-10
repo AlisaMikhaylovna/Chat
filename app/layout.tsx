@@ -19,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider afterSignOutUrl="/">
       <html lang="en" suppressContentEditableWarning>
         <body className={cn(font.className, "bg-zinc-200 dark:bg-zinc-700")}>
           <ThemeProvider
