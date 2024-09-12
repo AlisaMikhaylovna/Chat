@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <ClerkProvider afterSignOutUrl="/">
       <html lang="en" suppressContentEditableWarning>
-        <body className={cn(font.className, "bg-zinc-200 dark:bg-zinc-700")}>
+        <body className={cn(font.className, "bg-white dark:bg-[#313338]")}>
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
