@@ -72,8 +72,8 @@ model Member {
 
 enum ChannelType {
   TEXT
-  AUDIO
-  VIDEO
+  TOPIC
+  BLOG
 }
 
 model Channel {

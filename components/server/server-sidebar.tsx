@@ -1,6 +1,6 @@
 import { ChannelType, MemberRole } from "@prisma/client";
 import { redirect } from "next/navigation";
-import { Hash, Mic, ShieldAlert, ShieldCheck, Video } from "lucide-react";
+import { BookOpen, Edit, Hash, ShieldAlert, ShieldCheck } from "lucide-react";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
@@ -19,8 +19,8 @@ interface ServerSidebarProps {
 
 const iconMap = {
   [ChannelType.TEXT]: <Hash className="mr-2 h-4 w-4" />,
-  [ChannelType.AUDIO]: <Mic className="mr-2 h-4 w-4" />,
-  [ChannelType.VIDEO]: <Video className="mr-2 h-4 w-4" />
+  [ChannelType.TOPIC]: <Edit className="mr-2 h-4 w-4" />,
+  [ChannelType.BLOG]: <BookOpen className="mr-2 h-4 w-4" />
 };
 
 const roleIconMap = {
@@ -59,9 +59,9 @@ export const ServerSidebar = async ({
     }
   });
 
-  const textChannels = server?.channels.filter((channel) => channel.type === ChannelType.TEXT)
-  const audioChannels = server?.channels.filter((channel) => channel.type === ChannelType.AUDIO)
-  const videoChannels = server?.channels.filter((channel) => channel.type === ChannelType.VIDEO)
+  const chatChannels = server?.channels.filter((channel) => channel.type === ChannelType.TEXT)
+  const topicChannels = server?.channels.filter((channel) => channel.type === ChannelType.TOPIC)
+  const blogChannels = server?.channels.filter((channel) => channel.type === ChannelType.BLOG)
   const members = server?.members.filter((member) => member.profileId !== profile.id)
 
   if (!server) {
@@ -81,27 +81,27 @@ export const ServerSidebar = async ({
           <ServerSearch
             data={[
               {
-                label: "Text Channels",
+                label: "Chat Channels",
                 type: "channel",
-                data: textChannels?.map((channel) => ({
+                data: chatChannels?.map((channel) => ({
                   id: channel.id,
                   name: channel.name,
                   icon: iconMap[channel.type],
                 }))
               },
               {
-                label: "Voice Channels",
+                label: "Topic Channels",
                 type: "channel",
-                data: audioChannels?.map((channel) => ({
+                data: topicChannels?.map((channel) => ({
                   id: channel.id,
                   name: channel.name,
                   icon: iconMap[channel.type],
                 }))
               },
               {
-                label: "Video Channels",
+                label: "Blog Channels",
                 type: "channel",
-                data: videoChannels?.map((channel) => ({
+                data: blogChannels?.map((channel) => ({
                   id: channel.id,
                   name: channel.name,
                   icon: iconMap[channel.type],
@@ -120,16 +120,16 @@ export const ServerSidebar = async ({
           />
         </div>
         <Separator className="bg-zinc-200 dark:bg-zinc-700 rounded-md my-2" />
-        {!!textChannels?.length && (
+        {!!chatChannels?.length && (
           <div className="mb-2">
             <ServerSection
               sectionType="channels"
               channelType={ChannelType.TEXT}
               role={role}
-              label="Text Channels"
+              label="Chat Channels"
             />
             <div className="space-y-[2px]">
-              {textChannels.map((channel) => (
+              {chatChannels.map((channel) => (
                 <ServerChannel
                   key={channel.id}
                   channel={channel}
@@ -140,16 +140,16 @@ export const ServerSidebar = async ({
             </div>
           </div>
         )}
-        {!!audioChannels?.length && (
+        {!!topicChannels?.length && (
           <div className="mb-2">
             <ServerSection
               sectionType="channels"
-              channelType={ChannelType.AUDIO}
+              channelType={ChannelType.TOPIC}
               role={role}
               label="Voice Channels"
             />
             <div className="space-y-[2px]">
-              {audioChannels.map((channel) => (
+              {topicChannels.map((channel) => (
                 <ServerChannel
                   key={channel.id}
                   channel={channel}
@@ -160,16 +160,16 @@ export const ServerSidebar = async ({
             </div>
           </div>
         )}
-        {!!videoChannels?.length && (
+        {!!blogChannels?.length && (
           <div className="mb-2">
             <ServerSection
               sectionType="channels"
-              channelType={ChannelType.VIDEO}
+              channelType={ChannelType.BLOG}
               role={role}
-              label="Video Channels"
+              label="Blog Channels"
             />
             <div className="space-y-[2px]">
-              {videoChannels.map((channel) => (
+              {blogChannels.map((channel) => (
                 <ServerChannel
                   key={channel.id}
                   channel={channel}

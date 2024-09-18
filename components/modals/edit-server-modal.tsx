@@ -24,9 +24,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { FileUpload } from "@/components/file-upload";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
+import { FileUploadServer } from "../file-upload-server";
 
 const formSchema = z.object({
     name: z.string().min(1, {
@@ -99,7 +99,7 @@ export const EditServerModal = () => {
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormControl>
-                                                <FileUpload
+                                                <FileUploadServer
                                                     endpoint="serverImage"
                                                     value={field.value}
                                                     onChange={field.onChange}
