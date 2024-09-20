@@ -146,7 +146,7 @@ export const ServerSidebar = async ({
               sectionType="channels"
               channelType={ChannelType.TOPIC}
               role={role}
-              label="Voice Channels"
+              label="Topic Channels"
             />
             <div className="space-y-[2px]">
               {topicChannels.map((channel) => (
