@@ -13,7 +13,7 @@ export const useChatScroll = ({
   bottomRef,
   shouldLoadMore,
   loadMore,
-  count,
+  count
 }: ChatScrollProps) => {
   const [hasInitialized, setHasInitialized] = useState(false);
 

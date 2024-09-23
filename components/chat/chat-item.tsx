@@ -18,7 +18,7 @@ import {
     Form,
     FormControl,
     FormField,
-    FormItem,
+    FormItem
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -164,14 +164,14 @@ export const ChatItem = ({
                     )}
                     {isPDFVidio && (
                         <div className="relative flex items-center p-2 mt-2 rounded-md bg-background/10">
-                            <FileIcon className="h-10 w-10 fill-indigo-200 stroke-indigo-400" />
+                            <FileIcon className="h-10 w-10 fill-zinc-200 stroke-zinc-400" />
                             <a
                                 href={fileUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="ml-2 text-sm text-indigo-500 dark:text-indigo-400 hover:underline"
+                                className="ml-2 text-sm text-zinc-500 dark:text-zinc-400 hover:underline"
                             >
-                                PDF File
+                                File
                             </a>
                         </div>
                     )}
