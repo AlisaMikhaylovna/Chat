@@ -128,21 +128,41 @@ export const ChatItem = ({
     const isImage = !isPDFVidio && fileUrl;
 
     return (
-        <div className={cn(
-            "relative group flex items-center hover:bg-black/5 p-4 transition w-full",
-            isOwner ? "justify-end" : "justify-start"
-        )}>
-            <div className={cn(
-                "flex gap-x-2 w-full",
-                isOwner ? "flex-row-reverse items-end text-right" : "items-start"
-            )}>
-                <div onClick={onMemberClick} className="cursor-pointer hover:drop-shadow-md transition">
+        <div
+            className={cn(
+                "relative group flex items-center hover:bg-black/5 p-4 transition",
+                isOwner ? "justify-end" : "justify-start"
+            )}
+        >
+            <div
+                className={cn(
+                    "flex gap-x-2 max-w-fit",
+                    isOwner ? "flex-row-reverse items-end text-right" : "items-start"
+                )}
+            >
+                <div
+                    onClick={onMemberClick}
+                    className="cursor-pointer hover:drop-shadow-md transition"
+                >
                     <UserAvatar src={member.profile.imageUrl} />
                 </div>
-                <div className="flex flex-col w-full">
-                    <div className={cn("flex items-center gap-x-2", isOwner ? "justify-end" : "justify-start")}>
-                        <div className={cn("flex items-center", isOwner ? "flex-row-reverse" : "")}>
-                            <p onClick={onMemberClick} className="font-semibold text-sm hover:underline cursor-pointer">
+                <div className="flex flex-col">
+                    <div
+                        className={cn(
+                            "flex items-center gap-x-2",
+                            isOwner ? "justify-end" : "justify-start"
+                        )}
+                    >
+                        <div
+                            className={cn(
+                                "flex items-center",
+                                isOwner ? "flex-row-reverse" : ""
+                            )}
+                        >
+                            <p
+                                onClick={onMemberClick}
+                                className="font-semibold text-sm hover:underline cursor-pointer"
+                            >
                                 {member.profile.name}
                             </p>
                             <ActionTooltip label={member.role}>
@@ -158,18 +178,21 @@ export const ChatItem = ({
                             href={fileUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="relative aspect-square rounded-md mt-2 overflow-hidden border flex items-center bg-secondary h-48 w-48"
+                            className={cn(
+                                "relative aspect-square rounded-md mt-2 overflow-hidden border flex items-center bg-secondary h-48 w-48",
+                                isOwner ? "self-end" : "self-start"
+                            )}
                         >
-                            <Image
-                                src={fileUrl}
-                                alt={content}
-                                fill
-                                className="object-cover"
-                            />
+                            <Image src={fileUrl} alt={content} fill className="object-cover" />
                         </a>
                     )}
                     {isPDFVidio && (
-                        <div className="relative flex items-center p-2 mt-2 rounded-md bg-background/10">
+                        <div
+                            className={cn(
+                                "relative flex items-center p-2 mt-2 rounded-md bg-background/10",
+                                isOwner ? "self-end" : "self-start"
+                            )}
+                        >
                             <FileIcon className="h-10 w-10 fill-zinc-200 stroke-zinc-400" />
                             <a
                                 href={fileUrl}
@@ -182,10 +205,13 @@ export const ChatItem = ({
                         </div>
                     )}
                     {!fileUrl && !isEditing && (
-                        <p className={cn(
-                            "text-sm text-zinc-600 dark:text-zinc-300",
-                            deleted && "italic text-zinc-500 dark:text-zinc-400 text-xs mt-1"
-                        )}>
+                        <p
+                            className={cn(
+                                "text-sm text-zinc-600 dark:text-zinc-300",
+                                deleted &&
+                                "italic text-zinc-500 dark:text-zinc-400 text-xs mt-1"
+                            )}
+                        >
                             {content}
                             {isUpdated && !deleted && (
                                 <span className="text-[10px] mx-2 text-zinc-500 dark:text-zinc-400">
@@ -197,15 +223,16 @@ export const ChatItem = ({
                     {!fileUrl && isEditing && (
                         <Form {...form}>
                             <form
-                                className="flex items-center w-full gap-x-2 pt-2"
-                                onSubmit={form.handleSubmit(onSubmit)}>
+                                className="flex items-center gap-x-2 pt-2"
+                                onSubmit={form.handleSubmit(onSubmit)}
+                            >
                                 <FormField
                                     control={form.control}
                                     name="content"
                                     render={({ field }) => (
                                         <FormItem className="flex-1">
                                             <FormControl>
-                                                <div className="relative w-full">
+                                                <div className="relative">
                                                     <Input
                                                         disabled={isLoading}
                                                         className="p-2 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
@@ -229,11 +256,13 @@ export const ChatItem = ({
                 </div>
             </div>
             {canDeleteMessage && (
-                <div className={cn(
-                    "hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-2",
-                    isOwner ? "left-5" : "right-5",
-                    "bg-white dark:bg-zinc-800 border rounded-sm"
-                )}>
+                <div
+                    className={cn(
+                        "hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-2",
+                        isOwner ? "left-5" : "right-5",
+                        "bg-white dark:bg-zinc-800 border rounded-sm"
+                    )}
+                >
                     {canEditMessage && (
                         <ActionTooltip label="Edit">
                             <Edit
@@ -244,10 +273,12 @@ export const ChatItem = ({
                     )}
                     <ActionTooltip label="Delete">
                         <Trash
-                            onClick={() => onOpen("deleteMessage", {
-                                apiUrl: `${socketUrl}/${id}`,
-                                query: socketQuery,
-                            })}
+                            onClick={() =>
+                                onOpen("deleteMessage", {
+                                    apiUrl: `${socketUrl}/${id}`,
+                                    query: socketQuery,
+                                })
+                            }
                             className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
                         />
                     </ActionTooltip>
