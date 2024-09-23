@@ -14,7 +14,8 @@ export const FileUpload = ({
     value,
     endpoint
 }: FileUploadProps) => {
-    if (value) {
+    const fileType = value?.split(".").pop();
+    if (value && (fileType === "mp4" || "pdf")) {
         return (
             <div className="relative flex items-center p-2 mt-2 rounded-md bg-background/10">
                 <FileIcon className="h-10 w-10 fill-zinc-200 stroke-zinc-400" />

@@ -33,7 +33,7 @@ export const ChatInput = ({
     apiUrl,
     query,
     name,
-    type,
+    type
 }: ChatInputProps) => {
     const { onOpen } = useModal();
     const router = useRouter();
