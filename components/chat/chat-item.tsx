@@ -128,14 +128,20 @@ export const ChatItem = ({
     const isImage = !isPDFVidio && fileUrl;
 
     return (
-        <div className="relative group flex items-center hover:bg-black/5 p-4 transition w-full">
-            <div className="group flex gap-x-2 items-start w-full">
+        <div className={cn(
+            "relative group flex items-center hover:bg-black/5 p-4 transition w-full",
+            isOwner ? "justify-end" : "justify-start"
+        )}>
+            <div className={cn(
+                "flex gap-x-2 w-full",
+                isOwner ? "flex-row-reverse items-end text-right" : "items-start"
+            )}>
                 <div onClick={onMemberClick} className="cursor-pointer hover:drop-shadow-md transition">
                     <UserAvatar src={member.profile.imageUrl} />
                 </div>
                 <div className="flex flex-col w-full">
-                    <div className="flex items-center gap-x-2">
-                        <div className="flex items-center">
+                    <div className={cn("flex items-center gap-x-2", isOwner ? "justify-end" : "justify-start")}>
+                        <div className={cn("flex items-center", isOwner ? "flex-row-reverse" : "")}>
                             <p onClick={onMemberClick} className="font-semibold text-sm hover:underline cursor-pointer">
                                 {member.profile.name}
                             </p>
@@ -223,7 +229,11 @@ export const ChatItem = ({
                 </div>
             </div>
             {canDeleteMessage && (
-                <div className="hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-800 border rounded-sm">
+                <div className={cn(
+                    "hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-2",
+                    isOwner ? "left-5" : "right-5",
+                    "bg-white dark:bg-zinc-800 border rounded-sm"
+                )}>
                     {canEditMessage && (
                         <ActionTooltip label="Edit">
                             <Edit
@@ -244,5 +254,5 @@ export const ChatItem = ({
                 </div>
             )}
         </div>
-    )
+    );
 }

@@ -5,7 +5,7 @@ import axios from "axios";
 import qs from "query-string";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Plus, Send } from "lucide-react"; 
+import { Plus, Send } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import {
@@ -87,23 +87,23 @@ export const ChatInput = ({
                                         autoComplete="off"
                                         {...field}
                                     />
-                                    {/* <button
+                                    <button
                                         type="submit"
                                         className="absolute top-7 right-8 h-[24px] w-[24px] bg-sky-500 hover:bg-sky-600 transition rounded-full p-1 flex items-center justify-center"
                                         disabled={isLoading}
                                     >
                                         <Send className="text-white" />
-                                    </button> */}
+                                    </button>
                                     {/* <div className="absolute top-7 right-16">
                                         <EmojiPicker
                                             onChange={(emoji: string) => field.onChange(`${field.value} ${emoji}`)}
                                         />
                                     </div> */}
-                                    <div className="absolute top-7 right-8">
+                                    {/* <div className="absolute top-7 right-8">
                                         <EmojiPicker
                                             onChange={(emoji: string) => field.onChange(`${field.value} ${emoji}`)}
                                         />
-                                    </div>
+                                    </div> */}
                                 </div>
                             </FormControl>
                         </FormItem>
